@@ -1,1 +1,30 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}"
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container my-3">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>번호</th>
+          <th>아이디</th>
+          <th>이름</th>
+          <th>이메일</th>
+          <th>가입날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="users, loop: ${usersList}">
+          <td>
+            <a
+              th:text="${loop.count}"
+              th:href="@{|/users/list/${users.id}|}"></a>
+          </td>
+          <td th:text="${users.userId}"></td>
+          <td th:text="${users.username}"></td>
+          <td th:text="${users.email}"></td>
+          <td
+            th:text="${#temporals.format(users.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <a th:href="@{/hello}" class="btn btn-primary">메인으로</a>
+  </div>
+</html>
