@@ -1,21 +1,22 @@
 package com.project2.smartfactory.users;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
-import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-@NoArgsConstructor
-@RequiredArgsConstructor
+
+
+
 @Entity
+@Data
 public class Users {
 
     @Id

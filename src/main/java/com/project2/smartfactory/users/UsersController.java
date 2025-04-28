@@ -1,6 +1,8 @@
 package com.project2.smartfactory.users;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -10,8 +12,13 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class UsersController {
 
-    pri
-    
+    private final UsersService usersService;
+
+
+    @PostMapping("/create/{id}")
+    public String createUser(@PathVariable("id") Integer id) {
+
+    }
 
 
 
