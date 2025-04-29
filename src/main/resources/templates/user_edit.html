@@ -1,7 +1,11 @@
 <html layout:decorate="~{layout}">
   <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">회원수정</h5>
-    <form th:action="@{/users/list/{id}}" th:object="${userEdit}" method="put">
+    <form
+      th:action="@{/users/list/${usersForm.id}}"
+      th:object="${usersForm}"
+      method="put">
+      <input type="hidden" name="_method" value="put" />
       <div th:replace="~{form_errors :: formErrorsFragment}"></div>
       <div class="mb-3">
         <label for="userId" class="form-label">유저 아이디</label>

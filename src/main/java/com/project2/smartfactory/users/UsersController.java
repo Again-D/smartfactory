@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,8 +48,21 @@ public class UsersController {
 
     @GetMapping(value = "/list/{id}")
     public String showEditForm(Model model, @PathVariable("id") Integer id) {
-        Users user = this.usersService.getUser(id);
-        model.addAttribute("user", user);
+        Users user = this.usersService.getUser(id);     // id로 Users 엔티티 조회
+
+        // Users 엔티티 정보를 가지고 UsersForm 객체를 생성후 채우기
+        UsersForm usersForm = new UsersForm();
+        usersForm.setUserId(user.getUserId());
+        usersForm.setUsername(user.getUsername());
+        usersForm.setEmail(user.getEmail());
+        
+        // 수정 대상 사용자의 데이터베이스 ID를 Model에 별도로 담습니다.
+        // 템플릿의 th:action URL 생성에 사용됩니다
+        model.addAttribute("userIdForUrl", id); // Model에 "userIdForUrl" 이라는 이름으로 데이터베이스 ID를 담습니다.
+
+        // UsersForm 객체를 "usersForm" 이라는 이름으로 Model에 담습니다.
+        // 템플릿의 th:object="${usersForm}"과 매핑됩니다.
+        model.addAttribute("usersForm", usersForm); // <-- Model에 담는 객체 이름을 통일
         return "user_edit";
 
     }
@@ -60,6 +74,15 @@ public class UsersController {
         }
         this.usersService.updateUser(id,usersForm);
         return "redirect:/users/list";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+
+        this.usersService.deleteUser(id);
+
+        return "redirect:/users/list";
+        
     }
 
 

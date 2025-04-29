@@ -60,4 +60,16 @@ public class UsersService {
 
     }
 
+    public void deleteUser(Integer id) {
+        Optional<Users> optionalUser = this.usersRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+            this.usersRepository.delete(user);
+        } else {
+            throw new RuntimeException(String.format("User not exist with id: %s", id));
+        }
+        
+    }
+
 }
